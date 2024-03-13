@@ -1,0 +1,17 @@
+F:\Semestr6\Taiib\Skelpik\DAL\bin\Debug\net8.0\DAL.deps.json
+F:\Semestr6\Taiib\Skelpik\DAL\bin\Debug\net8.0\DAL.runtimeconfig.json
+F:\Semestr6\Taiib\Skelpik\DAL\bin\Debug\net8.0\DAL.dll
+F:\Semestr6\Taiib\Skelpik\DAL\bin\Debug\net8.0\DAL.pdb
+F:\Semestr6\Taiib\Skelpik\DAL\bin\Debug\net8.0\Model.dll
+F:\Semestr6\Taiib\Skelpik\DAL\bin\Debug\net8.0\Model.pdb
+F:\Semestr6\Taiib\Skelpik\DAL\obj\Debug\net8.0\DAL.csproj.AssemblyReference.cache
+F:\Semestr6\Taiib\Skelpik\DAL\obj\Debug\net8.0\DAL.GeneratedMSBuildEditorConfig.editorconfig
+F:\Semestr6\Taiib\Skelpik\DAL\obj\Debug\net8.0\DAL.AssemblyInfoInputs.cache
+F:\Semestr6\Taiib\Skelpik\DAL\obj\Debug\net8.0\DAL.AssemblyInfo.cs
+F:\Semestr6\Taiib\Skelpik\DAL\obj\Debug\net8.0\DAL.csproj.CoreCompileInputs.cache
+F:\Semestr6\Taiib\Skelpik\DAL\obj\Debug\net8.0\DAL.csproj.Up2Date
+F:\Semestr6\Taiib\Skelpik\DAL\obj\Debug\net8.0\DAL.dll
+F:\Semestr6\Taiib\Skelpik\DAL\obj\Debug\net8.0\refint\DAL.dll
+F:\Semestr6\Taiib\Skelpik\DAL\obj\Debug\net8.0\DAL.pdb
+F:\Semestr6\Taiib\Skelpik\DAL\obj\Debug\net8.0\DAL.genruntimeconfig.cache
+F:\Semestr6\Taiib\Skelpik\DAL\obj\Debug\net8.0\ref\DAL.dll
