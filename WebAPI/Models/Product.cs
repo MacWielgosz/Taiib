@@ -10,17 +10,24 @@ namespace Models
     {
         [Key]
         public int ID { get; set; }
+        public string Name { get; set; }
         public double Price { get; set; }
         public string Image { get; set; }
         public bool IsActive { get; set; }
         public IEnumerable<BasketPosition>? BasketPositions { get; set; }
+        public IEnumerable<Order>? Orders { get; set; }
 
         public void Configure(EntityTypeBuilder<Product> builder)
         {
             builder
                 .HasMany(x => x.BasketPositions)
                 .WithOne(x => x.Product)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .HasMany(x => x.Orders)
+                .WithOne(x => x.Product)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

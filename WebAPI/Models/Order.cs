@@ -10,11 +10,15 @@ namespace Models
     public class Order : IEntityTypeConfiguration<Order>
     {
         [Key]
-
         public int ID { get; set; }
         public int UserID { get; set; }
         [ForeignKey(nameof(UserID))]
         public User User { get; set; }
+
+        public int ProductID { get; set; }
+        [ForeignKey(nameof(ProductID))]
+        public Product Product { get; set; }
+
         public DateTime Date { get; set; }
         public IEnumerable<OrderPosition>? OrderPositions { get; set; }
 
@@ -24,12 +28,12 @@ namespace Models
             builder
                  .HasOne(x => x.User)
                  .WithMany(x => x.Orders)
-                 .OnDelete(DeleteBehavior.SetNull);
+                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
-                 .HasOne(x => x.User)
-                 .WithMany(x => x.Orders)
-                 .OnDelete(DeleteBehavior.Cascade);
+                .HasOne(x => x.Product)
+                .WithMany(x => x.Orders)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Models
 
     public enum TypeEnum
     {
-        Admin=0, Casual=1
+        Admin = 0, Casual = 1
     };
 
     [Table("Users")]
@@ -29,12 +29,12 @@ namespace Models
             builder
                 .HasMany(x => x.BasketPositions)
                 .WithOne(x => x.User)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .HasMany(x => x.Orders)
                 .WithOne(x => x.User)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
