@@ -10,7 +10,6 @@ namespace Models
     public class Order : IEntityTypeConfiguration<Order>
     {
         [Key]
-
         public int ID { get; set; }
         public int UserID { get; set; }
         [ForeignKey(nameof(UserID))]
@@ -32,8 +31,8 @@ namespace Models
                  .OnDelete(DeleteBehavior.Restrict);
 
             builder
-                .HasOne(x=> x.Product)
-                .WithMany(x=> x.Orders)
+                .HasOne(x => x.Product)
+                .WithMany(x => x.Orders)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

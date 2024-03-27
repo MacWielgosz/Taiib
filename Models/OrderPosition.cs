@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics;
 
 namespace Models
 {
@@ -10,11 +9,15 @@ namespace Models
     public class OrderPosition : IEntityTypeConfiguration<OrderPosition>
     {
         [Key]
-
         public int ID { get; set; }
         public int OrderID { get; set; }
         [ForeignKey(nameof(OrderID))]
         public Order? Order { get; set; }
+
+        public int ProductID { get; set; }
+        [ForeignKey(nameof(ProductID))]
+        public Product? Product { get; set; }
+
         public int Amount { get; set; }
         public double Price { get; set; }
 
@@ -23,7 +26,13 @@ namespace Models
             builder
                 .HasOne(x => x.Order)
                 .WithMany(x => x.OrderPositions)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .HasOne(x => x.Product)
+                .WithMany(x => x.OrderPositions)
+                .OnDelete(DeleteBehavior.Restrict);
+
         }
     }
 }
