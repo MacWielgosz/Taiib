@@ -30,7 +30,7 @@ namespace Models
             builder
                 .HasOne(x => x.Product)
                 .WithMany(x => x.BasketPositions)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.Restrict);
 
         }
     }

@@ -1,6 +1,6 @@
 ﻿namespace BLL
 {
-    class OrderDTO
+    public class OrderDTO
     {
         public int ID { get; set; }
         public int UserID { get; set; }

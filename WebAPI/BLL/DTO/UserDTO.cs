@@ -5,7 +5,7 @@
         Admin = 0, Casual = 1
     };
 
-    class UserDTO
+    public class UserDTO
     {
         public int ID { get; set; }
         public string Login { get; set; }

@@ -4,12 +4,11 @@ namespace DAL
 {
     public class WebshopContext : DbContext
     {
-
-        static public DbSet<Models.BasketPosition> BasketPositions { get; set; }
-        static public DbSet<Models.Order> OrderOrders { get; set; }
-        static public DbSet<Models.OrderPosition> OrderPositions { get; set; }
-        static public DbSet<Models.Product> Products { get; set; }
-        static public DbSet<Models.User> Users { get; set; }
+         public DbSet<Models.BasketPosition> BasketPositions { get; set; }
+         public DbSet<Models.Order> Orders { get; set; }
+         public DbSet<Models.OrderPosition> OrderPositions { get; set; }
+         public DbSet<Models.Product> Products { get; set; }
+         public DbSet<Models.User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

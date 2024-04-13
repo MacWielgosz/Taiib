@@ -1,6 +1,6 @@
-﻿namespace BLL.DTO
+﻿namespace BLL
 {
-    class BasketPositionBTO
+    public class BasketPositionDTO
     {
         public int ID { get; set; }
         public int ProductID { get; set; }
