@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BLL_EF
 {
-    internal class OrderPositionImp : IOrderPosition
+    public class OrderPositionImp : IOrderPosition
     {
         readonly WebshopContext webshopContext;
 

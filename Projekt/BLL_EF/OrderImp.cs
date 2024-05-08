@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BLL_EF
 {
-    internal class OrderImp : IOrder
+    public class OrderImp : IOrder
     {
         readonly WebshopContext webshopContext;
 

@@ -10,7 +10,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace BLL_EF
 {
-    internal class BasketPositionImp : IBasketPosition
+    public class BasketPositionImp : IBasketPosition
     {
         readonly WebshopContext webshopContext;
 
@@ -19,13 +19,13 @@ namespace BLL_EF
             this.webshopContext = webshopContext;
         }
 
-        public void AddBasketPosition(int productID, int userID, int amount)
+        public void AddBasketPosition(BasketPositionRequestDTO basketPositionRequest)
         {
             Models.BasketPosition basketPosition = new()
             {
-                ProductID = productID,
-                UserID = productID,
-                Amount = amount
+                ProductID = basketPositionRequest.ProductID,
+                UserID = basketPositionRequest.ProductID,
+                Amount = basketPositionRequest.Amount
             };
             webshopContext.BasketPositions.Add(basketPosition);
             webshopContext.SaveChanges();

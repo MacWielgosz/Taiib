@@ -21,10 +21,15 @@ namespace BLL_EF
             webshopContext.SaveChanges();
         }
 
-        public void AddProduct(string name, double price, string image, bool isActive)
+        public void AddProduct(ProductRequestDTO productRequest)
         {
-            if (price<=0) return; 
-            webshopContext.Products.Add(new Models.Product() { Name = name, Price = price, Image = image, IsActive = isActive });
+            if (productRequest.Price <= 0) return; 
+            webshopContext.Products.Add(new Models.Product() {
+                Name = productRequest.Name, 
+                Price = productRequest.Price, 
+                Image = productRequest.Image, 
+                IsActive = productRequest.IsActive
+            });
             webshopContext.SaveChanges();
 
         }
@@ -40,14 +45,14 @@ namespace BLL_EF
             webshopContext.Products.Remove(product);
         }
 
-        public void EditProduct(int id, string name, double price, string image, bool isActive)
+        public void EditProduct(int id, ProductRequestDTO productRequest)
         {
-            if (price <= 0) return;
+            if (productRequest.Price <= 0) return;
             Models.Product product = webshopContext.Products.Single(p => p.ID == id);
-            product.Name = name;
-            product.Price = price;
-            product.Image = image;
-            product.IsActive = isActive;
+            product.Name = productRequest.Name;
+            product.Price = productRequest.Price;
+            product.Image = productRequest.Image;
+            product.IsActive = productRequest.IsActive;
             webshopContext.SaveChanges();
         }
 
