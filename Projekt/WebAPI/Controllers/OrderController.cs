@@ -12,15 +12,15 @@ namespace WebAPI.Controllers
         {
             IOrder iOrder = order;
         }
-        [HttpGet("{userID}")]
+        [HttpGet("makeOrder-{userID}")]
         public void MakeOrder(int userID) {
             iOrder.MakeOrder(userID);
         }
-        [HttpGet()]
+        [HttpGet]
         public IEnumerable<OrderDTO> GetOrderAll() {
             return iOrder.GetOrderAll();
         }
-        [HttpGet("{userID}")]
+        [HttpGet("getOrder-{userID}")]
         public IEnumerable<OrderDTO> GetOrderUser(int userID) {
             return iOrder.GetOrderUser(userID);
         }

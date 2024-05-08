@@ -12,17 +12,17 @@ namespace WebAPI.Controllers
         {
             this.product = product;
         }
-        [HttpGet("{size},{from}")]
+        [HttpGet("product/{size},{from}")]
         public IEnumerable<ProductDTO> GetProducts(int size, int from)
         {
             return product.GetProducts(size,from);
         }
-        [HttpGet("{name}")]
+        [HttpGet("getproductbyname/{name}")]
         public IEnumerable<ProductDTO> GetProductsByName(string name)
         {
             return product.GetProductsByName(name);
         }
-        [HttpGet("{isActive}")]
+        [HttpGet("product/{isActive}")]
         public IEnumerable<ProductDTO> GetProductsByIsActive(bool isActive)
         {
             return product.GetProductsByIsActive(isActive);
@@ -33,17 +33,17 @@ namespace WebAPI.Controllers
         {
             product.AddProduct(productRequest);
         }
-        [HttpPut("{id}")]
+        [HttpPut("productedit/{id}")]
         public void EditProduct(int id, [FromBody] ProductRequestDTO productRequest)
         {
             product.EditProduct(id, productRequest);
         }
-        [HttpDelete("{id}")]
+        [HttpDelete("productdelete/{id}")]
         public void DeleteProduct(int id)
         {
             product.DeleteProduct(id);
         }
-        [HttpPut("{id}")]
+        [HttpPut("productput/{id}")]
         public void ActiveProduct(int id)
         {
             product.ActiveProduct(id);

@@ -12,7 +12,7 @@ namespace WebAPI.Controllers
         {
             this.orderPosition = orderPosition;
         }
-        [HttpGet("{orderID}")]
+        [HttpGet("OrderPosition-{orderID}")]
         public OrderPositionDTO OrderPosition(int orderID)
         {
             return orderPosition.OrderPosition(orderID);

@@ -17,18 +17,18 @@ namespace WebAPI.Controllers
         {
             basketPosition.AddBasketPosition(basketPositionRequestDTO);
         }
-        [HttpDelete("{id}")]
+        [HttpDelete("basketPosition/{id}")]
         public void DeleteBasketPosition(int id)
         {
             basketPosition.DeleteBasketPosition(id);
         }
-        [HttpPut("{id}, {amount}")]
+        [HttpPut("basketPosition/{id}, {amount}")]
         public void EditBasketPostion(int id, int amount)
         {
             basketPosition.EditBasketPostion(id, amount);
         }
 
-        [HttpGet("{userID}")]
+        [HttpGet("basketPosition/{userID}")]
         public IEnumerable<BasketPositionDTO> GetBasketPostion(int userID)
         {
             return basketPosition.GetBasketPostion(userID);
