@@ -15,18 +15,12 @@ namespace Models
         public string Image { get; set; }
         public bool IsActive { get; set; }
         public IEnumerable<BasketPosition>? BasketPositions { get; set; }
-        public IEnumerable<Order>? Orders { get; set; }
         public IEnumerable<OrderPosition>? OrderPositions { get; set; }
 
         public void Configure(EntityTypeBuilder<Product> builder)
         {
             builder
                 .HasMany(x => x.BasketPositions)
-                .WithOne(x => x.Product)
-                .OnDelete(DeleteBehavior.SetNull);
-
-            builder
-                .HasMany(x => x.Orders)
                 .WithOne(x => x.Product)
                 .OnDelete(DeleteBehavior.SetNull);
             

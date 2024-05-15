@@ -1,12 +1,5 @@
 ﻿using BLL;
 using DAL;
-using Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace BLL_EF
 {
@@ -20,7 +13,7 @@ namespace BLL_EF
         }
 
         public void AddBasketPosition(BasketPositionRequestDTO basketPositionRequest)
-        {
+        {   
             Models.BasketPosition basketPosition = new()
             {
                 ProductID = basketPositionRequest.ProductID,

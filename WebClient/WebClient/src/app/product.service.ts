@@ -12,7 +12,7 @@ export class ProductService {
   constructor(private httpClient:HttpClient) { }
 
   public get(from:number , to:number ): Observable<ProductDTO[]>{
-    return this.httpClient.get<ProductDTO[]>('https://localhost:7154/product/',{
+    return this.httpClient.get<ProductDTO[]>('https://localhost:7154/product:',{
       params:{
         from:from ??0,
         to: to ?? 10

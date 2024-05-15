@@ -1,6 +1,7 @@
 ﻿using BLL;
 using Microsoft.AspNetCore.Mvc;
 using BLL_EF;
+using Models;
 
 namespace WebAPI.Controllers
 {
@@ -12,7 +13,7 @@ namespace WebAPI.Controllers
         {
             IOrder iOrder = order;
         }
-        [HttpGet("makeOrder-{userID}")]
+        [HttpGet("makeOrder:{userID}")]
         public void MakeOrder(int userID) {
             iOrder.MakeOrder(userID);
         }
@@ -20,14 +21,17 @@ namespace WebAPI.Controllers
         public IEnumerable<OrderDTO> GetOrderAll() {
             return iOrder.GetOrderAll();
         }
-        [HttpGet("getOrder-{userID}")]
+        [HttpGet("getOrder:{userID}")]
         public IEnumerable<OrderDTO> GetOrderUser(int userID) {
             return iOrder.GetOrderUser(userID);
         }
 
+        [HttpGet("oders:{orderId}")]
+        public IEnumerable<OrderPositionDTO> GetProductsByIsActive(int orderId)
+        {
+            return iOrder.OrderPosition(orderId);
 
-
-
+        }
 
     }
 }

@@ -16,8 +16,6 @@ namespace Models
         public User User { get; set; }
 
         public int ProductID { get; set; }
-        [ForeignKey(nameof(ProductID))]
-        public Product Product { get; set; }
 
         public DateTime Date { get; set; }
         public IEnumerable<OrderPosition>? OrderPositions { get; set; }
@@ -29,11 +27,6 @@ namespace Models
                  .HasOne(x => x.User)
                  .WithMany(x => x.Orders)
                  .OnDelete(DeleteBehavior.Restrict);
-
-            builder
-                .HasOne(x => x.Product)
-                .WithMany(x => x.Orders)
-                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -56,21 +56,37 @@ namespace BLL_EF
             foreach (var item in baskets)
             {
                 Models.Order newOrder =new Order() {
-                UserID = userX.ID,
-                ProductID = item.ProductID,
-                Date = DateTime.Today
+                    UserID = userX.ID,
+                    ProductID = item.ProductID,
+                    Date = DateTime.Today
                 };
                 orders.Add(newOrder);
                 webshopContext.SaveChanges();
-                orderPositions.Add(new() {
-                OrderID = newOrder.ID,
-                ProductID=item.ProductID,
-                Amount = item.Amount,
-                Price = item.Product.Price
+                    orderPositions.Add(new() {
+                    OrderID = newOrder.ID,
+                    ProductID=item.ProductID,
+                    Amount = item.Amount,
+                    Price = item.Product.Price
                 });
                 baskets.Remove(item);
                 webshopContext.SaveChanges();
             }
+        }
+        public IEnumerable<OrderPositionDTO> OrderPosition(int orderID)
+        {
+            List<Models.OrderPosition> orderPositions = webshopContext.OrderPositions.Where( s => s.OrderID == orderID).ToList();
+            List<OrderPositionDTO> orderPositionsDto =
+            new(from b in orderPositions
+                select new OrderPositionDTO()
+                {
+                    Amount = b.Amount,
+                    Price = b.Price,
+                    OrderID = orderID,
+                    ID = orderID,
+                    ProductID =(int)b.ProductID
+                                        
+                });
+            return orderPositionsDto;
         }
     }
 }
