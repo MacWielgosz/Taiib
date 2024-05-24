@@ -20,20 +20,21 @@ namespace Models
         public string Password { get; set; }
         public bool IsActive { get; set; }
         public TypeEnum Type { get; set; }
-        public IEnumerable<Order>? Orders { get; set; }
-        public IEnumerable<BasketPosition>? BasketPositions { get; set; }
+        public List<Order> Orders { get; set; } = new();
+        public List<BasketPosition> BasketPositions { get; set; } = new();
 
         public void Configure(EntityTypeBuilder<User> builder)
         {
-
             builder
                 .HasMany(x => x.BasketPositions)
                 .WithOne(x => x.User)
+                .HasForeignKey(x => x.UserID)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .HasMany(x => x.Orders)
                 .WithOne(x => x.User)
+                .HasForeignKey(x => x.UserID)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

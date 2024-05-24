@@ -1,9 +1,17 @@
-<ul>
-<li> <a routerLink="products">products</a> </li>
-<li> <a routerLink="orders">orders</a> </li>
-<li> <a routerLink="orders/all">orders/all</a> </li>
-<li> <a routerLink="basket">baskets</a> </li>
-</ul>
+<mat-nav-list>
+    <mat-list-item>
+      <a matLine class="link" routerLink="products" color="warn">Products</a>
+    </mat-list-item>
+    <mat-list-item>
+      <a matLine class="link" routerLink="orders" color="warn" >Orders</a>
+    </mat-list-item>
+    <mat-list-item>
+      <a matLine class="link" routerLink="orders/all" color="warn" >Orders/All</a>
+    </mat-list-item>
+    <mat-list-item>
+      <a matLine class="link" routerLink="basket" color="warn">Baskets</a>
+    </mat-list-item>
+  </mat-nav-list>
 <router-outlet>
 
 </router-outlet>

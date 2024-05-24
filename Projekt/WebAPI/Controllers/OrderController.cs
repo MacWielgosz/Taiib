@@ -9,7 +9,7 @@ namespace WebAPI.Controllers
     {
         private readonly IOrder iOrder = order;
 
-        [HttpPost("makeOrder:{userID}")]
+        [HttpPost("makeOrder/{userID}")]
         public void MakeOrder(int userID) {
             iOrder.MakeOrder(userID);
         }

@@ -15,6 +15,7 @@ export class OrdersallComponent {
   constructor(private service:OrdersService, private router : Router){
     this.getOrders();
   }
+  displayedColumns: string[] = ['id', 'userID', 'date'];
 
   private getOrders():void{
     this.service.getAll(

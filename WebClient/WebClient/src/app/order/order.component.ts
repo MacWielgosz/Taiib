@@ -10,6 +10,7 @@ import { OrderDTO } from '../model/OrderDTO.interface';
 })
 export class OrderComponent {
   public data:OrderDTO[]=[];
+  displayedColumns: string[] = ['id', 'userID', 'date'];
   constructor(private service:OrdersService, private router : Router){
     this.getOrders();
   }

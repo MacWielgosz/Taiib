@@ -19,7 +19,7 @@ namespace WebAPI.Controllers
             return product.GetProduct(id);
         }
 
-        [HttpPost]
+        [HttpPost("productAdd")]
         public void AddProduct([FromBody]ProductRequestDTO productRequest)
         {
             product.AddProduct(productRequest);

@@ -1,14 +1,46 @@
-<p>detail-product works!</p>
-<div *ngIf="product">
-    <img [src]="product.image" alt="Product Image" />
-    <h2>{{ product.name }}</h2>
-    <p>Cena: {{ product.price }}</p>
-    <p *ngIf="product.isActive">Status: Aktywny</p>
-    <p *ngIf="!product.isActive">Status: Nieaktywny</p>
-    
-    <!-- Przyciski akcji -->
-    <button (click)="deleteProduct()">Usuń produkt</button>
-    <button (click)="toggleActivation()">
-      {{ product.isActive ? 'Dezaktywuj produkt' : 'Aktywuj produkt' }}
+<mat-card *ngIf="product" class="container">
+
+    <img class="zdjecie" [src]="product.image" alt="Product Image" />
+    <mat-card-header>
+      {{ product.name }}
+    </mat-card-header>
+    <mat-card-content> Cena: {{ product.price }} </mat-card-content>
+    <mat-card-content *ngIf="product.isActive">Status: Aktywny</mat-card-content>
+    <mat-card-content *ngIf="!product.isActive">Status: Nieaktywny</mat-card-content>
+    <mat-card-actions>
+
+      <button class="guzik" mat-raised-button color="secundary" (click)="deleteProduct()">Usuń</button>
+      <button class="guzik" mat-raised-button color="secundary" (click)="toggleActivation()">
+
+        {{ product.isActive ? 'Dezaktywuj' : 'Aktywuj' }}
+      </button>
+    </mat-card-actions>
+    <mat-divider/>
+</mat-card>
+  
+<mat-card class="container">
+  <form [formGroup]="productForm" (ngSubmit)="saveProduct()" class="formEdit">
+    <mat-form-field>
+      <mat-label for="name">
+        Nazwa
+      </mat-label>
+      <input matInput id="name" formControlName="name" type="text"/>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label for="price">
+        Cena
+      </mat-label>
+      <input matInput id="price" formControlName="price" type="number"/>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label for="image">
+        Obraz
+      </mat-label>
+      <input matInput id="image" formControlName="image" type="text"/>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" [disabled]="productForm.invalid">
+      Zapisz
     </button>
-  </div>
+  </form>
+</mat-card>
+

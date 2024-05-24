@@ -1,24 +1,35 @@
-<p>basket works!</p>
-<div >
-    <div  *ngFor="let s of data" class="selectable" >
-        {{s|json}}
-    </div>
+<div>
+  <button mat-raised-button color="primary" (click)="makeOrder()">Zamów</button>
 </div>
 <div class="container">
-    <table border="1">
-        <thead>
-            <th>ID </th>
-            <th>amount </th>
-            <th>productID </th>
-            <th>userID</th>
-        </thead>
-        <tbody>
-            <tr *ngFor="let pos of data">
-                <td>{{pos.id}} </td>
-                <td>{{pos.amount}} </td>
-                <td>{{pos.productID}} </td>
-                <td>{{pos.userID}} </td>
-            </tr>
-        </tbody>
-    </table>
+  <table mat-table [dataSource]="data" class="mat-elevation-z8">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let pos">{{ pos.id }}</td>
+    </ng-container>
+    <ng-container matColumnDef="productID">
+      <th mat-header-cell *matHeaderCellDef>ProductID</th>
+      <td mat-cell *matCellDef="let pos">{{ pos.productID }}</td>
+    </ng-container>
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef>Amount</th>
+      <td mat-cell *matCellDef="let pos">
+        <input matInput type="number" [(ngModel)]="pos.amount" (change)="updatePosition(pos)">
+      </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="userID">
+      <th mat-header-cell *matHeaderCellDef>UserID</th>
+      <td mat-cell *matCellDef="let pos">{{ pos.userID }}</td>
+    </ng-container>
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef>Usuń</th>
+      <td mat-cell *matCellDef="let pos">
+        <button mat-raised-button color="warn" (click)="deletePosition(pos.id)">Usuń</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
 </div>

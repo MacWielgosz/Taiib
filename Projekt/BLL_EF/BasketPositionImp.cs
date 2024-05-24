@@ -13,16 +13,28 @@ namespace BLL_EF
         }
 
         public void AddBasketPosition(BasketPositionRequestDTO basketPositionRequest)
-        {   
-            Models.BasketPosition basketPosition = new()
+        {
+            var existingBasketPosition = webshopContext.BasketPositions
+                .FirstOrDefault(bp => bp.UserID == basketPositionRequest.UserID && bp.ProductID == basketPositionRequest.ProductID);
+
+            if (existingBasketPosition != null)
+            {
+                existingBasketPosition.Amount++;
+                webshopContext.SaveChanges();
+                return;
+            }
+
+            Models.BasketPosition basketPosition = new Models.BasketPosition
             {
                 ProductID = basketPositionRequest.ProductID,
-                UserID = basketPositionRequest.ProductID,
+                UserID = basketPositionRequest.UserID,
                 Amount = basketPositionRequest.Amount
             };
+
             webshopContext.BasketPositions.Add(basketPosition);
             webshopContext.SaveChanges();
         }
+
 
         public void DeleteBasketPosition(int id)
         {

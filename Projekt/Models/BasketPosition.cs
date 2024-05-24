@@ -24,14 +24,14 @@ namespace Models
             builder
                 .HasOne(x => x.User)
                 .WithMany(x => x.BasketPositions)
-                .OnDelete(DeleteBehavior.SetNull);
-
+                .HasForeignKey(x => x.UserID)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder
                 .HasOne(x => x.Product)
                 .WithMany(x => x.BasketPositions)
+                .HasForeignKey(x => x.ProductID)
                 .OnDelete(DeleteBehavior.Restrict);
-
         }
     }
 }

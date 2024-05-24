@@ -1,8 +1,10 @@
 <p>ordersa-details works!</p>
-<ul>
-    <div *ngFor="let pos of data">
-        <li > 
-            {{pos.id}} , {{ pos.amount}} , {{pos.price}}, {{ pos.productID}}
-        </li>
-    </div>
-</ul>
+<mat-list>
+    <ng-container *ngFor="let pos of data">
+        <mat-list-item>
+            <mat-icon>arrow_left</mat-icon> <!-- Dodanie ikony -->
+            {{pos.id}}, {{pos.amount}}, {{pos.price}}, {{pos.productID}}
+        </mat-list-item>
+    </ng-container>
+</mat-list>
+  

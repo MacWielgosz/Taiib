@@ -1,0 +1,11 @@
+.link {
+    color: #1976D2; /* Kolor linku w stanie domyślnym */
+}
+  
+.link:hover {
+    color: #0D47A1; /* Kolor linku po najechaniu myszką */
+}
+  
+.link.clicked {
+    color: #FF6F00; /* Kolor linku po kliknięciu */
+}

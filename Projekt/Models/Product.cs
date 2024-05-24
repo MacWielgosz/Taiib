@@ -14,20 +14,23 @@ namespace Models
         public double Price { get; set; }
         public string Image { get; set; }
         public bool IsActive { get; set; }
-        public IEnumerable<BasketPosition>? BasketPositions { get; set; }
-        public IEnumerable<OrderPosition>? OrderPositions { get; set; }
+        public List<BasketPosition> BasketPositions { get; set; } = new();
+        public List<OrderPosition> OrderPositions { get; set; } = new();
 
         public void Configure(EntityTypeBuilder<Product> builder)
         {
             builder
                 .HasMany(x => x.BasketPositions)
                 .WithOne(x => x.Product)
-                .OnDelete(DeleteBehavior.SetNull);
-            
+                .HasForeignKey(x => x.ProductID)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder
                 .HasMany(x => x.OrderPositions)
                 .WithOne(x => x.Product)
+                .HasForeignKey(x => x.ProductID)
                 .OnDelete(DeleteBehavior.SetNull);
         }
     }
+
 }

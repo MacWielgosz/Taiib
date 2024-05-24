@@ -1,22 +1,20 @@
-<p>ordersall works!</p>
-<div >
-    <div  *ngFor="let s of data" class="selectable" >
-        {{s|json}}
-    </div>
-</div>
 <div class="container">
-    <table border="1">
-        <thead>
-            <th>ID </th>
-            <th>userID </th>
-            <th>Date </th>
-        </thead>
-        <tbody>
-            <tr *ngFor="let order of data" (click)="route(order.id)" >
-                <td>{{order.id}} </td>
-                <td>{{order.userID}} </td>
-                <td>{{order.date}} </td>
-            </tr>
-        </tbody>
+    <table mat-table class="mat-elevation-z8" [dataSource]="data">
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>ID</th>
+            <td mat-cell *matCellDef="let order">{{order.id}}</td>
+        </ng-container>
+        <ng-container matColumnDef="userID">
+            <th mat-header-cell *matHeaderCellDef>userID</th>
+            <td mat-cell *matCellDef="let order">{{order.userID}}</td>
+        </ng-container>
+        <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>Date</th>
+            <td mat-cell *matCellDef="let order">{{order.date}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="route(row.id)"></tr>
     </table>
 </div>
+  

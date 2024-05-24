@@ -26,7 +26,7 @@ namespace BLL_EF
                 Name = productRequest.Name, 
                 Price = productRequest.Price, 
                 Image = productRequest.Image, 
-                IsActive = productRequest.IsActive
+                IsActive = false
             });
             webshopContext.SaveChanges();
 
@@ -37,8 +37,14 @@ namespace BLL_EF
 
             Models.Product product = webshopContext.Products.Single(p => p.ID == id);
 
-            if (product.OrderPositions.Any()) product.IsActive = false;
-            if (product.BasketPositions.Any()) return;
+            if (product.OrderPositions != null && product.OrderPositions.Any()) {
+                return;
+            };
+            if (product.BasketPositions != null && product.OrderPositions.Any())  {
+                product.IsActive = false;
+                webshopContext.SaveChanges();
+                return;
+            }
 
             webshopContext.Products.Remove(product);
             webshopContext.SaveChanges();
@@ -52,7 +58,6 @@ namespace BLL_EF
             product.Name = productRequest.Name;
             product.Price = productRequest.Price;
             product.Image = productRequest.Image;
-            product.IsActive = productRequest.IsActive;
             webshopContext.SaveChanges();
         }
 

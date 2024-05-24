@@ -1,0 +1,18 @@
+<p>product-add works!</p>
+<div>
+    <form [formGroup]="productForm" (ngSubmit)="saveProduct()">
+      <div>
+        <label for="name">Nazwa</label>
+        <input id="name" formControlName="name" type="text"/>
+      </div>
+      <div>
+        <label for="price">Cena</label>
+        <input id="price" formControlName="price" type="number"/>
+      </div>
+      <div>
+        <label for="image">Obraz</label>
+        <input id="image" formControlName="image" type="text"/>
+      </div>
+    <button type="submit" [disabled]="productForm.invalid">Zapisz</button>
+  </form>
+  </div>

@@ -1,30 +1,38 @@
-<form  (ngSubmit)="getSort()">
-    <label for="page"> Nr strony</label>
-    <input id="from" name="from" type="number" min="0" [(ngModel)]="from">
-    <label for="count"> liczba elementow</label>
-    <input id="to" name="to" type="number" min="0" [(ngModel)]="size">
-    <label for="asc"> Malejaco</label>
-    <input id="asc" name="asc" type="checkbox" [(ngModel)]="acs">
-    <label id="name" name="name" > Nazwa</label>
-    <input id="name" name="name" type="text" [(ngModel)]="name">
-    <button type="submit">Sortuj</button>
-</form>
-<div >
-    <div  *ngFor="let s of data" class="selectable" >
-        {{s|json}}
-    </div>
+<div class="caleM">
+  <form (ngSubmit)="getSort()" class="menu">
+    <mat-form-field class="menu" appearance="fill">
+      <mat-label>Nr strony</mat-label>
+      <input matInput id="from" name="from" type="number" min="0" [(ngModel)]="from">
+    </mat-form-field>
+
+    <mat-form-field class="menu" appearance="fill">
+      <mat-label>Liczba elementów</mat-label>
+      <input matInput id="to" name="to" type="number" min="0" [(ngModel)]="size">
+    </mat-form-field>
+    <span class="daneMenu">  
+      <mat-checkbox class="menu" id="asc" name="asc" [(ngModel)]="acs">Malejąco</mat-checkbox>
+      <mat-checkbox class="menu" id="isActive" name="isActive" [(ngModel)]="isActive" checked>Aktywuj</mat-checkbox>
+    </span> 
+    <mat-form-field class="menu" appearance="fill">
+      <mat-label>Nazwa</mat-label>
+      <input matInput id="name" name="name" type="text" [(ngModel)]="name">
+    </mat-form-field>
+
+    <button class="menu" mat-raised-button color="secundary" type="submit">Sortuj</button>
+  </form>
+    <button class="menu" mat-raised-button color="primary" (click)="add()">Dodaj produkt</button>
 </div>
+
 <div class="container">
-    <div class="row">
-      <div class="col-md-4" *ngFor="let product of data" >
-          <div class="card h-100" (click)="route(product.id)" >
-            <div class="card-body">
-              <span>
-                <p class="card-title">{{product.name}}</p>
-                <p class="card-text">Price: ${{product.price}}</p>
-              </span>
-            </div>
-          </div>
-      </div>
-    </div>
+  <mat-card class="kafelek" *ngFor="let product of data">
+    <mat-card-content (click)="route(product.id)">
+      <span class="daneP">
+        <p>{{product.name}}</p>
+        <p>{{product.price}} ZŁ</p>
+      </span>
+    </mat-card-content>
+    <mat-card-actions>
+      <button class="buttonCard" (click)="addToBasket(product.id)" mat-stroked-button color="warn">Dodaj</button>
+    </mat-card-actions>
+  </mat-card>
 </div>

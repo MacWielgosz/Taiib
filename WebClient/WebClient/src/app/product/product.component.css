@@ -1,32 +1,45 @@
 .container {
-    margin-top: 20px;
-  }
-  
-  .card {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    background-color: #4794e2; /* Kolor tła kafelka */
-  }
-  
-  .card-img-top {
-    width: 100%;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-  }
-  
-  .card-body {
-    padding: 10px;
-  }
-  
-  .card-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333; /* Kolor tytułu */
-  }
-  
-  .card-text {
-    font-size: 16px;
-    color: #555; /* Kolor tekstu */
-  }
-  
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 200px); /* Ustaw szerokość kafelka na 200px */
+  gap: 16px; /* Odstęp między kafelkami */
+  justify-content: center; /* Centrowanie kafelków w kontenerze */
+}
+
+.kafelek {
+  width: 200px; /* Stała szerokość kafelka */
+  box-sizing: border-box;
+  margin: 8px; /* Dodatkowy margines wokół każdego kafelka */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.kafelek:hover {
+  transform: scale(1.05); 
+}
+
+mat-card-content {
+  cursor: pointer;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: center;
+  padding: 8px;
+}
+
+.buttonCard {
+  width: 100%;
+}
+.daneP{
+  text-align: center;
+}
+.caleM{
+  display: flex;
+  align-items: center;
+}
+.menu{
+  margin-left: 5px;
+  margin-right: 5px;
+}

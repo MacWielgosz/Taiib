@@ -1,5 +1,6 @@
 ﻿using BLL;
 using DAL;
+using Microsoft.EntityFrameworkCore;
 using Models;
 using System;
 using System.Collections.Generic;
@@ -47,28 +48,54 @@ namespace BLL_EF
 
         public void MakeOrder(int userID)
         {
-            User userX = webshopContext.Users.Single(u => u.ID == userID);
-            List<Models.BasketPosition> baskets = userX.BasketPositions.ToList();
-            List<Models.Order> orders = webshopContext.Orders.ToList();
-            List<Models.OrderPosition> orderPositions = webshopContext.OrderPositions.ToList();
+            User userX = webshopContext.Users
+                                        .Include(u => u.BasketPositions)
+                                        .ThenInclude(bp => bp.Product)
+                                        .SingleOrDefault(u => u.ID == userID);
+            Console.WriteLine(userID); 
+            if (userX == null)
+            {
+                throw new ArgumentException("Użytkownik o podanym ID nie istnieje");
+            }
+
+            List<BasketPosition> baskets = userX.BasketPositions.ToList();
+            if (baskets == null || baskets.Count == 0)
+            {
+                throw new InvalidOperationException("Koszyk użytkownika jest pusty.");
+            }
+            Order newOrder = new Order
+            {
+                UserID = userX.ID,
+                Date = DateTime.Now
+            };
+            webshopContext.Orders.Add(newOrder);
+            webshopContext.SaveChanges();  // Zapisz nowy order, aby uzyskać jego ID
+
             foreach (var item in baskets)
             {
-                Models.Order newOrder =new() {
-                    UserID = userX.ID,
-                    Date = DateTime.Today
-                };
-                orders.Add(newOrder);
-                webshopContext.SaveChanges();
-                    orderPositions.Add(new() {
+                if (item.Product == null)
+                {
+                    throw new InvalidOperationException($"Produkt z ID {item.ProductID} nie istnieje.");
+                }
+                
+                OrderPosition orderPosition = new OrderPosition
+                {
                     OrderID = newOrder.ID,
-                    ProductID=item.ProductID,
+                    ProductID = item.ProductID,
                     Amount = item.Amount,
                     Price = item.Product.Price
-                });
-                baskets.Remove(item);
-                webshopContext.SaveChanges();
+                };
+                webshopContext.OrderPositions.Add(orderPosition);
+
+                webshopContext.BasketPositions.Remove(item);
             }
+
+            webshopContext.SaveChanges();
         }
+
+
+
+
         public IEnumerable<OrderPositionDTO> OrderPosition(int orderID)
         {
             List<Models.OrderPosition> orderPositions = webshopContext.OrderPositions.Where( s => s.OrderID == orderID).ToList();
