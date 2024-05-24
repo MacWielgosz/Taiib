@@ -1,1 +1,24 @@
 <p>basket works!</p>
+<div >
+    <div  *ngFor="let s of data" class="selectable" >
+        {{s|json}}
+    </div>
+</div>
+<div class="container">
+    <table border="1">
+        <thead>
+            <th>ID </th>
+            <th>amount </th>
+            <th>productID </th>
+            <th>userID</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let pos of data">
+                <td>{{pos.id}} </td>
+                <td>{{pos.amount}} </td>
+                <td>{{pos.productID}} </td>
+                <td>{{pos.userID}} </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

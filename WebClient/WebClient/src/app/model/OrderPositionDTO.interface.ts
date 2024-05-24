@@ -1,5 +1,5 @@
 export interface OrderPositionDTO {
-    iD: number;
+    id: number;
     orderID: number;
     productID: number;
     amount: number;

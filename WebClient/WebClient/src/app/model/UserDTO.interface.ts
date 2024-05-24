@@ -4,7 +4,7 @@ export enum TypeEnum {
 }
 
 export interface UserDTO {
-    iD: number;
+    id: number;
     login: string;
     password: string;
     isActive: boolean;

@@ -1,5 +1,5 @@
 export interface BasketPositionDTO {
-    iD: number;
+    id: number;
     productID: number;
     userID: number;
     amount: number;

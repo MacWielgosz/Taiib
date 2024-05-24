@@ -1,15 +1,30 @@
-<p>product works!</p>
+<form  (ngSubmit)="getSort()">
+    <label for="page"> Nr strony</label>
+    <input id="from" name="from" type="number" min="0" [(ngModel)]="from">
+    <label for="count"> liczba elementow</label>
+    <input id="to" name="to" type="number" min="0" [(ngModel)]="size">
+    <label for="asc"> Malejaco</label>
+    <input id="asc" name="asc" type="checkbox" [(ngModel)]="acs">
+    <label id="name" name="name" > Nazwa</label>
+    <input id="name" name="name" type="text" [(ngModel)]="name">
+    <button type="submit">Sortuj</button>
+</form>
 <div >
-    <div  *ngFor="let s of data">
+    <div  *ngFor="let s of data" class="selectable" >
         {{s|json}}
     </div>
-
-    <div  *ngFor="let s of data">
-        <span>
-            <img/>
-            <span></span>
-            <span></span>
-        </span>
+</div>
+<div class="container">
+    <div class="row">
+      <div class="col-md-4" *ngFor="let product of data" >
+          <div class="card h-100" (click)="route(product.id)" >
+            <div class="card-body">
+              <span>
+                <p class="card-title">{{product.name}}</p>
+                <p class="card-text">Price: ${{product.price}}</p>
+              </span>
+            </div>
+          </div>
+      </div>
     </div>
-
 </div>

@@ -4,15 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
 {
-    public class BasketPositionController : ControllerBase
+    public class BasketPositionController(BasketPositionImp basketPosition) : ControllerBase
     {
-        private readonly IBasketPosition basketPosition;
+        private readonly IBasketPosition basketPosition = basketPosition;
 
-        public BasketPositionController(BasketPositionImp basketPosition)
-        {
-            this.basketPosition = basketPosition;
-        }
-        [HttpPost]
+        [HttpPost("basketPosition")]
         public void AddBasketPosition([FromBody]BasketPositionRequestDTO basketPositionRequestDTO)
         {
             basketPosition.AddBasketPosition(basketPositionRequestDTO);

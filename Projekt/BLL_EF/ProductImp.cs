@@ -1,6 +1,5 @@
 ﻿using BLL;
 using DAL;
-using Microsoft.EntityFrameworkCore;
 
 namespace BLL_EF
 {
@@ -16,8 +15,7 @@ namespace BLL_EF
         public void ActiveProduct(int id)
         {
             Models.Product product = webshopContext.Products.Single(p => p.ID == id);
-            if(product.IsActive) {return; }
-            product.IsActive = true;
+            product.IsActive = (!product.IsActive);
             webshopContext.SaveChanges();
         }
 
@@ -43,6 +41,8 @@ namespace BLL_EF
             if (product.BasketPositions.Any()) return;
 
             webshopContext.Products.Remove(product);
+            webshopContext.SaveChanges();
+
         }
 
         public void EditProduct(int id, ProductRequestDTO productRequest)
@@ -56,11 +56,29 @@ namespace BLL_EF
             webshopContext.SaveChanges();
         }
 
-        public IEnumerable<ProductDTO> GetProducts(int size, int from)
+        public ProductDTO GetProduct(int id)
         {
+            Models.Product product = webshopContext.Products.Single(p => p.ID == id);
+
+            ProductDTO productDTO = new()
+            {
+                ID = product.ID
+                , Name = product.Name
+                , Price = product.Price
+                , Image = product.Image
+                , IsActive = product.IsActive
+
+            };
+
+            return productDTO;
+        }
+
+        public IEnumerable<ProductDTO> GetProducts(Sort sort)
+        {
+
             List<Models.Product> products1 = webshopContext.Products.ToList();
             List<ProductDTO> _products =
-            new(from p in webshopContext.Products
+            new(from p in products1
                 select new ProductDTO()
                 {
                     ID = p.ID,
@@ -69,40 +87,16 @@ namespace BLL_EF
                     Image = p.Image,
                     IsActive = p.IsActive
                 });
-            return _products.GetRange(from,size);
-        }
+            
+                _products = _products.Where(s => s.IsActive == sort.IsActive ).ToList();
+            
+            if (sort.Name != null)
+                _products = _products.Where(s => s.Name.Contains(sort.Name)).ToList();
+            
+            if ((bool)!sort.Asc)
+                _products = _products.OrderByDescending(s => s.Price).ToList();
 
-        public IEnumerable<ProductDTO> GetProductsByIsActive(bool isActive)
-        {
-            List<Models.Product> products = webshopContext.Products.Where(p => p.IsActive == isActive).ToList();
-            List<ProductDTO> _products =
-            new(from p in products
-                select new ProductDTO()
-                {
-                    ID = p.ID,
-                    Name = p.Name,
-                    Price = p.Price,
-                    Image = p.Image,
-                    IsActive = p.IsActive
-                });
-            return _products;
+            return _products.Skip((int)(sort.Size * sort.From)).Take((int)sort.Size);
         }
-
-        public IEnumerable<ProductDTO> GetProductsByName(string name)
-        {
-            List<Models.Product> products = webshopContext.Products.Where(p => p.Name.Contains(name)).ToList();
-            List<ProductDTO> _products =
-            new(from p in products
-                select new ProductDTO()
-                {
-                    ID = p.ID,
-                    Name = p.Name,
-                    Price = p.Price,
-                    Image = p.Image,
-                    IsActive = p.IsActive
-                });
-            return _products;
-        }
-
     }
 }

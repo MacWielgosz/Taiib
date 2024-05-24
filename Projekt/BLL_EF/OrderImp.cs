@@ -25,7 +25,6 @@ namespace BLL_EF
                 select new OrderDTO()
                 {
                     ID = b.ID,
-                    ProductID = b.ProductID,
                     UserID = b.UserID,
                     Date = b.Date
                 });
@@ -40,7 +39,6 @@ namespace BLL_EF
                 select new OrderDTO()
                 {
                     ID = b.ID,
-                    ProductID = b.ProductID,
                     UserID = b.UserID,
                     Date = b.Date
                 });
@@ -55,9 +53,8 @@ namespace BLL_EF
             List<Models.OrderPosition> orderPositions = webshopContext.OrderPositions.ToList();
             foreach (var item in baskets)
             {
-                Models.Order newOrder =new Order() {
+                Models.Order newOrder =new() {
                     UserID = userX.ID,
-                    ProductID = item.ProductID,
                     Date = DateTime.Today
                 };
                 orders.Add(newOrder);
@@ -83,7 +80,7 @@ namespace BLL_EF
                     Price = b.Price,
                     OrderID = orderID,
                     ID = orderID,
-                    ProductID =(int)b.ProductID
+                    ProductID = b.ProductID
                                         
                 });
             return orderPositionsDto;

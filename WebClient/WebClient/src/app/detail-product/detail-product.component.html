@@ -1,0 +1,14 @@
+<p>detail-product works!</p>
+<div *ngIf="product">
+    <img [src]="product.image" alt="Product Image" />
+    <h2>{{ product.name }}</h2>
+    <p>Cena: {{ product.price }}</p>
+    <p *ngIf="product.isActive">Status: Aktywny</p>
+    <p *ngIf="!product.isActive">Status: Nieaktywny</p>
+    
+    <!-- Przyciski akcji -->
+    <button (click)="deleteProduct()">Usuń produkt</button>
+    <button (click)="toggleActivation()">
+      {{ product.isActive ? 'Dezaktywuj produkt' : 'Aktywuj produkt' }}
+    </button>
+  </div>

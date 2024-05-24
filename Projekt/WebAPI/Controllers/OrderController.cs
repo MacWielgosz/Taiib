@@ -5,32 +5,27 @@ using Models;
 
 namespace WebAPI.Controllers
 {
-    public class OrderController : ControllerBase
+    public class OrderController(OrderImp order) : ControllerBase
     {
-        private readonly IOrder iOrder;
+        private readonly IOrder iOrder = order;
 
-        public OrderController(OrderImp order)
-        {
-            IOrder iOrder = order;
-        }
-        [HttpGet("makeOrder:{userID}")]
+        [HttpPost("makeOrder:{userID}")]
         public void MakeOrder(int userID) {
             iOrder.MakeOrder(userID);
         }
-        [HttpGet]
+        [HttpGet("orderall")]
         public IEnumerable<OrderDTO> GetOrderAll() {
             return iOrder.GetOrderAll();
         }
-        [HttpGet("getOrder:{userID}")]
+        [HttpGet("getOrder/{userID}")]
         public IEnumerable<OrderDTO> GetOrderUser(int userID) {
             return iOrder.GetOrderUser(userID);
         }
 
-        [HttpGet("oders:{orderId}")]
+        [HttpGet("oders/{orderId}")]
         public IEnumerable<OrderPositionDTO> GetProductsByIsActive(int orderId)
         {
             return iOrder.OrderPosition(orderId);
-
         }
 
     }

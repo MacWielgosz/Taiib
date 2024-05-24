@@ -2,8 +2,8 @@
 {
     public class BasketPositionRequestDTO
     {
-        public int ProductID { get; set; }
-        public int UserID { get; set; }
-        public int Amount { get; set; }
+        public int ProductID { get; init; }
+        public int UserID { get; init; }
+        public int Amount { get; init; }
     }
 }

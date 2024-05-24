@@ -4,29 +4,19 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
 {
-    public class ProductController : ControllerBase
+    public class ProductController(ProductImp product) : ControllerBase
     {
-        private readonly IProduct product;
+        private readonly IProduct product = product;
 
-        public ProductController(ProductImp product)
+        [HttpGet("product")]
+        public IEnumerable<ProductDTO> GetProducts([FromQuery] Sort sort)
         {
-            this.product = product;
+            return product.GetProducts(sort);
         }
-
-        [HttpGet("product:{size},{from}")]
-        public IEnumerable<ProductDTO> GetProducts(int size, int from)
+        [HttpGet("product/{id}")]
+        public ProductDTO GetProducts(int id)
         {
-            return product.GetProducts(size,from);
-        }
-        [HttpGet("getproductbyname:{name}")]
-        public IEnumerable<ProductDTO> GetProductsByName(string name)
-        {
-            return product.GetProductsByName(name);
-        }
-        [HttpGet("productByIsActive:{isActive}")]
-        public IEnumerable<ProductDTO> GetProductsByIsActive(bool isActive)
-        {
-            return product.GetProductsByIsActive(isActive);
+            return product.GetProduct(id);
         }
 
         [HttpPost]
@@ -34,17 +24,17 @@ namespace WebAPI.Controllers
         {
             product.AddProduct(productRequest);
         }
-        [HttpPut("productedit:{id}")]
+        [HttpPut("productEdit/{id}")]
         public void EditProduct(int id, [FromBody] ProductRequestDTO productRequest)
         {
             product.EditProduct(id, productRequest);
         }
-        [HttpDelete("productdelete:{id}")]
+        [HttpDelete("productDelete/{id}")]
         public void DeleteProduct(int id)
         {
             product.DeleteProduct(id);
         }
-        [HttpPut("productpu:{id}")]
+        [HttpPut("producPut/{id}")]
         public void ActiveProduct(int id)
         {
             product.ActiveProduct(id);

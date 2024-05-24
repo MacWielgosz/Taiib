@@ -4,17 +4,20 @@ import { Router } from '@angular/router';
 import { OrderDTO } from '../model/OrderDTO.interface';
 
 @Component({
-  selector: 'app-order',
-  templateUrl: './order.component.html',
-  styleUrl: './order.component.css'
+  selector: 'app-ordersall',
+  templateUrl: './ordersall.component.html',
+  styleUrl: './ordersall.component.css'
 })
-export class OrderComponent {
+
+
+export class OrdersallComponent {
   public data:OrderDTO[]=[];
   constructor(private service:OrdersService, private router : Router){
     this.getOrders();
   }
+
   private getOrders():void{
-    this.service.getOne( (window as any).globalUserId
+    this.service.getAll(
       ).subscribe({
       next: (res) =>{
         this.data=res;

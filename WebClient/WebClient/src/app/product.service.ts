@@ -1,24 +1,33 @@
 import { HttpClient } from '@angular/common/http';
-import { I18NHtmlParser } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ProductDTO } from './model/ProductDTO.interface';
+import { Sort } from './model/Sort.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-
   constructor(private httpClient:HttpClient) { }
 
-  public get(from:number , to:number ): Observable<ProductDTO[]>{
-    return this.httpClient.get<ProductDTO[]>('https://localhost:7154/product:',{
+  public get(sort:Sort): Observable<ProductDTO[]>{
+    return this.httpClient.get<ProductDTO[]>('https://localhost:7154/product',{
       params:{
-        from:from ??0,
-        to: to ?? 10
+        size:sort.size ?? 10,
+        from:sort.from ?? 0,
+        name:sort.name ?? "",
+        isActive:sort.isActive ?? 2,
+        asc:sort.asc ?? true
       }
     });
   }
-
-  
+  deleteProduct(productId: number): Observable<void> {
+    return this.httpClient.delete<void>('https://localhost:7154/productDelete/'+productId)
+  }
+  activateProduct(productId: number): Observable<void> {
+    return this.httpClient.put<void>('https://localhost:7154/producPut/'+productId,{})
+  }
+  getProductById(productId: number) : Observable<ProductDTO> {
+    return this.httpClient.get<ProductDTO>('https://localhost:7154/product/' + productId)
+  }
 }

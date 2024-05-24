@@ -1,14 +1,18 @@
 using DAL;
+using BLL_EF;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<WebshopContext>();
+
+// Register ProductImp in the DI container
+builder.Services.AddScoped<ProductImp>();
+builder.Services.AddScoped<OrderImp>();
+builder.Services.AddScoped<BasketPositionImp>();
 
 var app = builder.Build();
 
@@ -21,8 +25,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+// Configure CORS
+app.UseCors(opt => opt.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
+app.UseAuthorization();
+app.UseRequestLocalization();
 app.MapControllers();
 
 app.Run();

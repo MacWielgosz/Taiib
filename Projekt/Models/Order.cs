@@ -14,9 +14,6 @@ namespace Models
         public int UserID { get; set; }
         [ForeignKey(nameof(UserID))]
         public User User { get; set; }
-
-        public int ProductID { get; set; }
-
         public DateTime Date { get; set; }
         public IEnumerable<OrderPosition>? OrderPositions { get; set; }
 

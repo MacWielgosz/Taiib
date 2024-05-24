@@ -7,10 +7,10 @@
 
     public class UserDTO
     {
-        public int ID { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
-        public bool IsActive { get; set; }
-        public TypeEnum Type { get; set; }
+        public int ID { get; init; }
+        public string Login { get; init; }
+        public string Password { get; init; }
+        public bool IsActive { get; init; }
+        public TypeEnum Type { get; init; }
     }
 }

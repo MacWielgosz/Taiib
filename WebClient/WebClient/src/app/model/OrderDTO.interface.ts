@@ -1,6 +1,5 @@
 export interface OrderDTO {
-    iD: number;
+    id: number;
     userID: number;
-    productID: number;
     date: string;
 }
