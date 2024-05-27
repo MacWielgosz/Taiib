@@ -34,7 +34,7 @@ namespace BLL_EF
 
         public IEnumerable<OrderDTO> GetOrderUser(int userID)
         {
-            List<Models.Order> orders = webshopContext.Orders.Where(o=>o.UserID== userID).ToList();
+            List<Models.Order> orders = webshopContext.Orders.Where(o=>o.UserID == userID).ToList();
             List<OrderDTO> _orders =
             new(from b in orders
                 select new OrderDTO()
@@ -92,9 +92,6 @@ namespace BLL_EF
 
             webshopContext.SaveChanges();
         }
-
-
-
 
         public IEnumerable<OrderPositionDTO> OrderPosition(int orderID)
         {

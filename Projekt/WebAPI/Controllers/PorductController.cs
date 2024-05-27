@@ -1,9 +1,11 @@
 ﻿using BLL;
 using BLL_EF;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
 {
+    [Authorize]
     public class ProductController(ProductImp product) : ControllerBase
     {
         private readonly IProduct product = product;

@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using BLL_EF;
 using Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI.Controllers
 {
+    [Authorize]
     public class OrderController(OrderImp order) : ControllerBase
     {
         private readonly IOrder iOrder = order;
