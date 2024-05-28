@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { jwtDecode } from 'jwt-decode';
 
@@ -8,7 +7,8 @@ import { jwtDecode } from 'jwt-decode';
 })
 export class AuthService {
 
-  constructor(private jwtHelper:JwtHelperService,private router:Router){}
+  constructor(private jwtHelper: JwtHelperService) { }
+
   IsUserAuthenticated(){
     const token = localStorage.getItem("jwt");
     if(token && !this.jwtHelper.isTokenExpired(token)){
@@ -18,6 +18,7 @@ export class AuthService {
       return false;
     }
   }
+
   private getDecodedToken(): any {
     const token = localStorage.getItem('jwt');
     if (token) {
@@ -31,19 +32,20 @@ export class AuthService {
     return null;
   }
 
-  private getUserRoles(): string[] {
+  getUserRoles(): string[] {
     const decodedToken = this.getDecodedToken();
     if (decodedToken && decodedToken.role) {
       return Array.isArray(decodedToken.role) ? decodedToken.role : [decodedToken.role];
     }
     return [];
   }
+
   isAdmin(): boolean {
     const roles = this.getUserRoles();
     return roles.includes("admin");
   }
 
-  logOut(){
+  logOut() {
     localStorage.removeItem("jwt");
   }
 }

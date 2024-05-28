@@ -1,18 +1,31 @@
-import { CanActivateFn } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import { Injectable } from '@angular/core';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { AuthService } from './auth.service';
 
-export const authGuard: CanActivateFn = (route, state) => {
-  const jwtHelper = new JwtHelperService(); // Utwórz instancję JwtHelperService
-  const token = localStorage.getItem("jwt");
-  if (token) {
-    // Sprawdzanie czy token jest wygasły
-    const tokenExpirationDate = jwtHelper.getTokenExpirationDate(token);
-    const isTokenExpired = tokenExpirationDate && tokenExpirationDate < new Date();
-    if (!isTokenExpired) {
-      return true; // Zwraca true jeśli token istnieje i nie wygasł
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthGuard implements CanActivate {
+
+  constructor(private authService: AuthService, private router: Router) {}
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    if (this.authService.IsUserAuthenticated()) {
+      if (route.data && route.data['expectedRole']) {
+        const isAdmin = this.authService.isAdmin();
+        if (isAdmin && route.data['expectedRole'] === 'admin') {
+          return true;
+        } else {
+          console.log('User is not authorized to access this route.');
+          this.router.navigate(['/']); // Przekieruj użytkownika na stronę główną lub inną stronę błędu
+          return false;
+        }
+      }
+      return true; // Zwróć true, jeśli użytkownik jest zalogowany i nie ma określonej roli
+    } else {
+      console.log('User is not authenticated.');
+      this.router.navigate(['/']); // Przekieruj użytkownika na stronę logowania
+      return false;
     }
   }
-  
-  // Przekierowanie do strony logowania jeśli brak tokena lub token wygasł
-  return false;
-};
+}
