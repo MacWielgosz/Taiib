@@ -24,7 +24,7 @@ namespace BLL_EF
                 return;
             }
 
-            Models.BasketPosition basketPosition = new Models.BasketPosition
+            Models.BasketPosition basketPosition = new()
             {
                 ProductID = basketPositionRequest.ProductID,
                 UserID = basketPositionRequest.UserID,

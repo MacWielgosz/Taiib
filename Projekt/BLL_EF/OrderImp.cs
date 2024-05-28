@@ -63,7 +63,7 @@ namespace BLL_EF
             {
                 throw new InvalidOperationException("Koszyk użytkownika jest pusty.");
             }
-            Order newOrder = new Order
+            Order newOrder = new()
             {
                 UserID = userX.ID,
                 Date = DateTime.Now
@@ -78,7 +78,7 @@ namespace BLL_EF
                     throw new InvalidOperationException($"Produkt z ID {item.ProductID} nie istnieje.");
                 }
                 
-                OrderPosition orderPosition = new OrderPosition
+                OrderPosition orderPosition = new()
                 {
                     OrderID = newOrder.ID,
                     ProductID = item.ProductID,

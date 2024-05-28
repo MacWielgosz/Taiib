@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI.Controllers
 {
-    [Authorize]
+    [ApiController,Authorize]
     public class OrderController(OrderImp order) : ControllerBase
     {
         private readonly IOrder iOrder = order;
@@ -16,6 +16,7 @@ namespace WebAPI.Controllers
             iOrder.MakeOrder(userID);
         }
         [HttpGet("orderall")]
+        [Authorize(Roles ="admin")]
         public IEnumerable<OrderDTO> GetOrderAll() {
             return iOrder.GetOrderAll();
         }

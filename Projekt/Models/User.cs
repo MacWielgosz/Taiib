@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Models
 {
 
-    public enum TypeEnum
+    public enum TypUser
     {
         Admin = 0, Casual = 1
     };
@@ -19,7 +19,7 @@ namespace Models
         public string Login { get; set; }
         public string Password { get; set; }
         public bool IsActive { get; set; }
-        public TypeEnum Type { get; set; }
+        public TypUser Type { get; set; }
         public List<Order> Orders { get; set; } = new();
         public List<BasketPosition> BasketPositions { get; set; } = new();
 

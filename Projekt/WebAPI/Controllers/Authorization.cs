@@ -3,45 +3,58 @@ using DAL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Models;
+using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 
 namespace WebAPI.Controllers
 {
-    public class Authorization : ControllerBase
+    [ApiController]
+    public class AuthorizationController : ControllerBase
     {
-        WebshopContext webshopContext;
+        private readonly WebshopContext _webshopContext;
+        private readonly string _secretKey = "bardzoseketrynykodktorymusibycwtajemnicy";
 
-        public Authorization(WebshopContext webshopContext)
+        public AuthorizationController(WebshopContext webshopContext)
         {
-            this.webshopContext = webshopContext;
+            _webshopContext = webshopContext;
         }
 
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginRequest user)
         {
-            if(user== null)
+            if (user == null)
             {
-                return BadRequest("Invalid client request");
+                return Unauthorized();
             }
-            User userX = webshopContext.Users.SingleOrDefault(u => u.Login.Equals(user.Login) && u.Password.Equals(user.Password));
-            if(userX != null)
+
+            User userX = _webshopContext.Users.SingleOrDefault(u => u.Login.Equals(user.Login) && u.Password.Equals(user.Password));
+
+            var claims = new List<Claim>
             {
-                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("sekret"));
-                var singninCredentia = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+                new("role", userX.Type == TypUser.Admin ? "admin":"Casual"),
+            };
+            if (userX != null)
+            {
+                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secretKey));
+                var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
                 var tokenOptions = new JwtSecurityToken(
-                    issuer : "",
-                    audience: "",
-                    claims: new List<Claim>(),
+                    issuer: "https://localhost:7154", // Adres serwera API
+                    audience: "https://localhost:4200", // Adres frontendowego klienta
+                    claims: claims,
                     expires: DateTime.Now.AddDays(1),
-                    signingCredentials: singninCredentia);
+                    signingCredentials: signingCredentials);
                 var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-                return Ok( new {Token =  tokenString});
+                return Ok(new { Token = tokenString });
             }
             else
+            {
                 return Unauthorized();
-               
+            }
         }
+
     }
 }

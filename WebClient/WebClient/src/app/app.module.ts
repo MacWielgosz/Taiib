@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { ProductComponent } from './product/product.component';
 import { OrderComponent } from './order/order.component';
 import { BasketComponent } from './basket/basket.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
 import localeEn from '@angular/common/locales/en';
@@ -23,8 +23,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import {MatTableModule} from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
-
+import { LoginComponent } from './login/login.component';
+import { JwtModule } from '@auth0/angular-jwt';
+import { AuthInterceptor } from './auth.interceptor';
 registerLocaleData(localeEn);
+export function tokenGetter(){
+  return localStorage.getItem("jwt");
+}
+(window as any).globalUserId = 1;
 
 @NgModule({
   declarations: [
@@ -35,7 +41,8 @@ registerLocaleData(localeEn);
     DetailProductComponent,
     OrdersallComponent,
     OrdersaDetailsComponent,
-    ProductAddComponent
+    ProductAddComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -50,13 +57,19 @@ registerLocaleData(localeEn);
     MatButtonModule,
     MatListModule,
     MatTableModule,
-    MatIconModule
+    MatIconModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ["localhost:7154"]
+      }
+    })
   ],
   providers: [
+    { provide:HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true},
     provideAnimationsAsync(),
     provideAnimationsAsync('noop')
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-(window as any).globalUserId = 1;

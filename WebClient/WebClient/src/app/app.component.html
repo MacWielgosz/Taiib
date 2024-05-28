@@ -1,17 +1,21 @@
-<mat-nav-list>
-    <mat-list-item>
-      <a matLine class="link" routerLink="products" color="warn">Products</a>
-    </mat-list-item>
-    <mat-list-item>
-      <a matLine class="link" routerLink="orders" color="warn" >Orders</a>
-    </mat-list-item>
-    <mat-list-item>
-      <a matLine class="link" routerLink="orders/all" color="warn" >Orders/All</a>
-    </mat-list-item>
-    <mat-list-item>
-      <a matLine class="link" routerLink="basket" color="warn">Baskets</a>
-    </mat-list-item>
-  </mat-nav-list>
+<mat-nav-list *ngIf="IsUserAuthenticated()">
+  <mat-list-item>
+    <a matLine class="link" routerLink="products" color="warn">Products</a>
+  </mat-list-item>
+  <mat-list-item>
+    <a matLine class="link" routerLink="orders" color="warn" >Orders</a>
+  </mat-list-item>
+  <mat-list-item *ngIf="isAdmin()" >
+    <a matLine class="link" routerLink="orders/all" color="warn" >Orders/All</a>
+  </mat-list-item>
+  <mat-list-item>
+    <a matLine class="link" routerLink="basket" color="warn">Baskets</a>
+  </mat-list-item>
+  <mat-list-item>
+    <a matLine class="link" routerLink="login" color="warn" (click)="logOut()">wyloguj</a>
+  </mat-list-item>
+</mat-nav-list>
+
 <router-outlet>
 
 </router-outlet>

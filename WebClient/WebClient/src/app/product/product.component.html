@@ -20,7 +20,7 @@
 
     <button class="menu" mat-raised-button color="secundary" type="submit">Sortuj</button>
   </form>
-    <button class="menu" mat-raised-button color="primary" (click)="add()">Dodaj produkt</button>
+    <button class="menu" mat-raised-button color="primary" (click)="add()" *ngIf="isAdmin()" >Dodaj produkt</button>
 </div>
 
 <div class="container">

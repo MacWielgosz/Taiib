@@ -1,4 +1,4 @@
-.productForm {
+.form-signin {
     max-width: 330px;
     margin: auto;
     padding: 15px;
@@ -13,6 +13,11 @@
   h2 {
     margin-bottom: 20px;
     text-align: center;
+  }
+  
+  .alert {
+    color: #d32f2f;
+    margin-bottom: 15px;
   }
   
   mat-form-field {

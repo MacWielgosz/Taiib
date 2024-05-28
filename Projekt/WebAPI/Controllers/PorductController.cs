@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
 {
-    [Authorize]
+    [ApiController,Authorize]
     public class ProductController(ProductImp product) : ControllerBase
     {
         private readonly IProduct product = product;

@@ -4,6 +4,7 @@ import { ProductService } from '../product.service';
 import { Router } from '@angular/router';
 import { BasketService } from '../basket.service';
 import {MatButtonModule} from '@angular/material/button';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-product',
@@ -25,7 +26,7 @@ addToBasket(productId: number):void {
   public acs:boolean=false;
   public name:string="";  
   public isActive:boolean= true;
-  constructor(private service:ProductService, private router : Router, private serviceBasket:BasketService){
+  constructor(private service:ProductService, private router : Router, private serviceBasket:BasketService, private authService : AuthService){
     this.getProducts();
   }
   
@@ -55,4 +56,12 @@ addToBasket(productId: number):void {
   public add() :void{
     this.router.navigate(['products/add']); // Przekierowanie do listy produktów
   }
+  
+  IsUserAuthenticated(): boolean {
+    return this.authService.IsUserAuthenticated();
+  }
+  isAdmin(){
+    return this.authService.isAdmin();
+  }
+
 }
