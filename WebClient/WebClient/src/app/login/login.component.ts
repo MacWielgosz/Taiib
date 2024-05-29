@@ -24,6 +24,8 @@ export class LoginComponent {
       const token = (response as any).token;
       localStorage.setItem("jwt", token);
       this.invalidLogin = false;
+      (window as any).globalUserId=this.authService.getUserID();
+
     }, err => {
       this.invalidLogin = true;
     });

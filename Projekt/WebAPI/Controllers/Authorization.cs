@@ -35,7 +35,8 @@ namespace WebAPI.Controllers
 
             var claims = new List<Claim>
             {
-                new("role", userX.Type == TypUser.Admin ? "admin":"Casual"),
+                new(ClaimTypes.Role, userX.Type == TypUser.Admin ? "admin":"Casual"),
+                new(ClaimTypes.PrimarySid, userX.ID.ToString()),
             };
             if (userX != null)
             {

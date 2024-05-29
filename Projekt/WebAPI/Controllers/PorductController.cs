@@ -22,6 +22,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("productAdd")]
+        [Authorize(Roles = "admin")]
         public void AddProduct([FromBody]ProductRequestDTO productRequest)
         {
             product.AddProduct(productRequest);

@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { jwtDecode } from 'jwt-decode';
+export interface DecodeToken{
+  'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'?: string;
+  'http://schemas.microsoft.com/ws/2008/06/identity/claims/primarysid'?: string;
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +28,7 @@ export class AuthService {
     const token = localStorage.getItem('jwt');
     if (token) {
       try {
-        return jwtDecode(token);
+        return jwtDecode<DecodeToken>(token);
       } catch (error) {
         console.error('Invalid token:', error);
         return null;
@@ -34,8 +39,16 @@ export class AuthService {
 
   getUserRoles(): string[] {
     const decodedToken = this.getDecodedToken();
-    if (decodedToken && decodedToken.role) {
-      return Array.isArray(decodedToken.role) ? decodedToken.role : [decodedToken.role];
+    if (decodedToken && decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] || '') {
+      return Array.isArray(decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] || '') ? decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] || '' : [decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] || ''];
+    }
+    return [];
+  }
+  
+  getUserID(): string[] {
+    const decodedToken = this.getDecodedToken();
+    if (decodedToken && decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/primarysid'] || '' ) {
+      return Array.isArray(decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/primarysid'] || '') ? decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/primarysid'] || '' : [decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/primarysid'] || ''];
     }
     return [];
   }
